@@ -1,78 +1,86 @@
-# Admission CRM
+# 🎓 Admission Management CRM
 
-Admission CRM is a full-stack university admission management application built with:
+A full-stack web application to manage college admissions with quota-based seat allocation and validation.
 
-- **Backend:** .NET 9 Web API with Entity Framework Core and SQL Server
-- **Frontend:** React + Vite
-- **Data model:** Programs, Applicants, Seat Matrix, Admissions, Quotas
+---
 
-## Features
+## 🚀 Tech Stack
 
-- Manage programs and applicants
-- Define seat matrix quotas for KCET, COMEDK, and Management
-- Allocate admissions by quota
-- Track fee payment and confirmation
-- Dashboard with quota summary and pending items
+* **Backend:** ASP.NET Core Web API (.NET 9, Entity Framework Core)
+* **Frontend:** React (Vite)
+* **Database:** SQL Server
 
-## Repository structure
+---
 
-- `backend/` — ASP.NET Core Web API project
-- `frontend/` — React frontend built with Vite
+## ✨ Key Features
 
-## Prerequisites
+* 📌 Program & Seat Matrix configuration
+* 👨‍🎓 Applicant management
+* 🎯 Quota-based seat allocation (KCET / COMEDK / Management)
+* 🚫 Prevents seat overbooking using real-time validation
+* 🔢 Unique admission number generation
+* 💰 Admission confirmation only after fee payment
+* 📊 Dashboard with:
 
-- .NET 9 SDK
-- Node.js 18+ and npm
-- SQL Server Express / SQL Server / Azure SQL
+  * Total seats vs admitted
+  * Quota-wise allocation
+  * Pending documents & fees
 
-## Local setup
+---
 
-### 1. Configure the database
+## 📁 Project Structure
 
-The backend uses SQL Server. The default connection string is in `backend/appsettings.json`:
-
-```json
-"DefaultConnection": "Server=.\\SQLEXPRESS22;Database=AdmissionCRM;Trusted_Connection=True;TrustServerCertificate=True;"
+```
+AdmissionCRM/
+ ├── backend/    → .NET Web API
+ ├── frontend/   → React (Vite)
+ └── README.md
 ```
 
-Update this value if you are using:
+---
 
-- `localhost` or `127.0.0.1`
-- `localhost\\SQLEXPRESS`
-- LocalDB: `Server=(localdb)\\MSSQLLocalDB`
-- Azure SQL connection string
+## ⚙️ Prerequisites
 
-### 2. Create or update the database
+* .NET 9 SDK
+* Node.js (v18+)
+* SQL Server / SQL Server Express / Azure SQL
 
-From the `backend/` folder:
+---
+
+## 🛠️ Local Setup
+
+### 1️⃣ Backend Setup
 
 ```bash
 cd backend
 dotnet restore
 ```
 
-If you have the EF Core CLI installed, apply migrations:
+Update connection string in `appsettings.json`:
+
+```json
+"DefaultConnection": "Server=.;Database=AdmissionCRM;Trusted_Connection=True;TrustServerCertificate=True;"
+```
+
+Run migrations:
 
 ```bash
 dotnet tool install --global dotnet-ef
 dotnet ef database update
 ```
 
-If you do not have the tool installed, you can install it globally or run it as a local tool.
-
-### 3. Start the backend
-
-From `backend/`:
+Start backend:
 
 ```bash
-dotnet run --launch-profile http
+dotnet run
 ```
 
-This starts the API. By default it will listen on `http://localhost:5000` and `https://localhost:5001`.
+👉 Runs on: http://localhost:5000
+👉 Swagger: http://localhost:5000/swagger
 
-### 4. Start the frontend
+---
 
-From `frontend/`:
+### 2️⃣ Frontend Setup
 
 ```bash
 cd frontend
@@ -80,85 +88,79 @@ npm install
 npm run dev
 ```
 
-Open the Vite URL shown in the terminal (usually `http://localhost:5173`).
+👉 Runs on: http://localhost:5173
 
-### 5. Configure the frontend API base URL
+---
 
-The frontend sends requests to `http://localhost:5000` by default. If your backend runs on a different URL, set `VITE_API_BASE_URL` before starting the frontend.
+### 3️⃣ API Configuration
 
-For Windows PowerShell:
+Ensure frontend connects to backend:
 
-```powershell
-$env:VITE_API_BASE_URL = 'https://localhost:5001'
-npm run dev
+```javascript
+const API = "http://localhost:5000/api";
 ```
 
-For macOS / Linux:
+---
 
-```bash
-export VITE_API_BASE_URL='https://localhost:5001'
-npm run dev
-```
+## 🧪 How to Use
 
-## Development workflow
+1. Create Program
+2. Define Seat Matrix (quota distribution)
+3. Add Applicants
+4. Allocate Seat (based on quota availability)
+5. Mark Fee as Paid
+6. Confirm Admission
+7. View Dashboard
 
-- `frontend/src/api.js` contains the API client and base URL logic
-- `frontend/src/pages/` contains the page components for dashboard, programs, applicants, seat matrix, allocation, and admissions
-- `backend/Controllers` contains the API endpoints
-- `backend/Models` contains the EF Core entities
-- `backend/Data/AppDbContext.cs` contains the database context
+---
 
-## Free deployment options
+## 🌐 Deployment (Free)
 
 ### Frontend
 
-For the React app, the easiest free hosting options are:
-
-- **Vercel** — deploy directly from GitHub; build command: `npm run build`; output directory: `dist`
-- **Netlify** — same setup as Vercel
+* Netlify / Vercel
+* Build command: `npm run build`
+* Output directory: `dist`
 
 ### Backend
 
-For the .NET API, these free/low-cost options are practical for development:
-
-- **Render** / **Railway** — deploy the .NET app from GitHub
-- **Azure App Service** — free tier is limited, but available for dev/test
+* Render / Railway / Azure App Service
 
 ### Database
 
-Because this project uses SQL Server, the free database options are:
+* Azure SQL (free tier) or SQL Server Express
 
-- **Azure SQL** — has free credits and trial options
-- **SQL Server Express** or **LocalDB** on a self-hosted machine
-- **Docker** with SQL Server Express for development
+---
 
-### Recommended free deployment path
+## 🔥 Key Highlights
 
-1. Host the frontend on Vercel or Netlify
-2. Host the backend on Render, Railway, or Azure App Service
-3. Use an Azure SQL free/trial database or a self-hosted SQL Server instance
-4. Configure the frontend `VITE_API_BASE_URL` to point to the deployed backend URL
+* ✔ Prevents quota violations (no overbooking)
+* ✔ Clean REST API architecture
+* ✔ Separation of frontend & backend
+* ✔ Real-world admission workflow implementation
 
-## Notes
+---
 
-- This project is built for demonstration and small-scale admission workflows.
-- For production, secure the API, enable authentication, and use a managed production database.
-- Make sure the backend and frontend are allowed to communicate via CORS.
+## 🤖 AI Usage
 
-## Useful commands
+AI tools were used as development aids:
 
-```bash
-# Backend
-cd backend
-dotnet restore
-dotnet run --launch-profile http
+* **ChatGPT** – for project structuring, understanding requirements, and debugging issues
+* **GitHub Copilot** – for code suggestions and faster implementation
+* **Kilo Code** – for assistance in writing and refining parts of the code
 
-# Frontend
-cd frontend
-npm install
-npm run dev
-```
+All core logic, design decisions, and implementation were reviewed, understood, and validated manually.
 
-## Contact
 
-If you want, I can also help you add Docker support or a deployment pipeline for Vercel/Render/Azure.
+---
+
+## 📌 Notes
+
+* Built as per assignment requirements
+* No payment gateway or authentication included (out of scope)
+
+---
+
+## 📬 Contact
+
+**Srinidhi R**
